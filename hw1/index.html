@@ -3,8 +3,17 @@
 	</head>
 	<body>
 		<h1> Task 1 </h1>
-			For this task, I implemented basic rasterization. 
-		To ensure that it was at least as efficient as checking the smallest bounding box containing the triangle, 
-			
+			<br>For this task, I implemented basic rasterization. <br>
+			<br>To ensure that it was at least as efficient as checking the smallest bounding box containing the triangle,
+			I construct the bounding box by using  
+			<br>int max_height = MAX(floor(y0),floor(y1),floor(y2)); <br>
+    			<br> int max_width = MAX(floor(x0),floor(x1),floor(x2)); <br>
+    			<br> int min_height = MIN(floor(y0),floor(y1),floor(y2)); <br>
+    			<br> int min_width = MIN(floor(x0),floor(x1),floor(x2)); <br>
+			<br> Then I check each i,j in the above bounds. For each pixel, I compute the mid point as i + 0.5, j+ 0.5 (with appropriate typecasting)<br>
+			<br>and apply the in-triangle test. Instead of just checking > 0, I check for  >= 0 since we want the points on the edge to be considered as well.<br>
+			<br> Also, before performing the in-triangle test, I account for the orientation of the triangle by computing the cross-product of (x1 - x0, y1 - y0) <br>
+			<br> with (x2 - x1, y2 - y1). If the orientation is positive (cross product > 0), I don't change anything. If it is negative I swap x1,x2 and y1,y2 <br>
+			<br> below is an image of test4
 	</body>
 </html>
