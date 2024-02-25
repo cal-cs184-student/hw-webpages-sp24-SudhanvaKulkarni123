@@ -15,26 +15,44 @@
 			<br> Also, before performing the in-triangle test, I account for the orientation of the triangle by computing the cross-product of (x1 - x0, y1 - y0) <br>
 			<br> with (x2 - x1, y2 - y1). If the orientation is positive (cross product > 0), I don't change anything. If it is negative I swap x1,x2 and y1,y2 <br>
 			<br> below is an image of test4 <br>
-			<img src="Screen Shot 2024-02-25 at 8.51.46 AM.png" alt="test4">
+			<img src="Screen Shot 2024-02-25 at 8.51.46 AM.png" alt="test4" width="400" 
+     height="500">
 
 		<h1> Task 2 </h1>
 		<br> This task was supersampling. For this, I first modified the sample buffer to be of size sample_size*width*height rather than just width*height <br>
-		<br> Then, for each pixel in the bounding box, I check
+		<br> Then, for each pixel in the bounding box, I have two inner loops (with variables k and l) running from 1 to sqrt(sample_size) where apply the triangle test on a point (x,y) <br>
+		<br> Where x = i + (k + 0.5)/sqrt(sample_size) and y = j + (k + 0.5)/sqrt(sample_size).I also have an auxillary index variable that I increment whenever the innermost loop is completed. <br>
+		<br> I do this since I set sample_buffer[sample_rate * (y * width + x) + index] = color if the triangle test returns true. <br>
+		<br> When I finish checking all the "sub-pixels", I reset index to be 0. <br>
+		<br> Then, when rendering, to move from sample to frame buffer, I use the following loop <br>
+		<br> for (int ind = 0; ind less than sample_rate; ind++) col = col + sample_buffer[sample_rate * (y * width + x) + ind]; <br>
+		<br> Finally, I avergae it out by dividing by sample size <br>
+		<br> Here is a rendering of test4 <br>
+		img src="Screen Shot 2024-02-25 at 10.41.47 AM.png" alt="ss1" width="400" 
+     height="500">
+		<br> For an alternative method, I also tried out jittered sampling. For this, I simply changed the x = i + (k + 0.5)/sqrt(sample_size) to be x = i + rnad(0,1)<br>
+		<br> where the random numbers are from the uniform distrbution. Below is a rendering of the same image with jittered sampling <br>
+		img src="Screen Shot 2024-02-25 at 10.42.53 AM.png" alt="ss1" width="400" 
+     height="500">
+        
 
 
 		<h1> Task 3</h1>
 		<br> Here is the robot. He is dancing - I rotated the torso by 30 degrees and the leg by 45 degrees. <br>
-		<img src="Screen Shot 2024-02-25 at 9.25.14 AM.png" alt="robot">
+		<img src="Screen Shot 2024-02-25 at 9.25.14 AM.png" alt="robot" width="400" 
+     height="500">
 
 		<h1> Task 4</h1>
 
 		<br> This task was for barycentric coordinates. The barycentric coordinate system takes any point (x,y) and turns it into a point (alpha, beta, gamma) <br>
 		<br> Where (alpha, beta, gamma) satisfy x = alpha*A_x + beta*B_x + gamma*C_x and y = alpha*A_y + beta*B_y + gamma*C_y and the additional constraint of alpha + beta + gamma = 1. <br>
 		<br> So, we are essentailly representing each point as a weighted average of the points of a triangle. An example is shown below where we have three vertices - R,G,B <br>
-		<img src="Screen Shot 2024-02-25 at 9.49.05 AM.png" alt="simple triangle">
+		<img src="Screen Shot 2024-02-25 at 9.49.05 AM.png" alt="simple triangle" width="400" 
+     height="500">
 		<br> We can see how all the colors blend together towards the centre of the triangle <br>
 		<br> Here is the color wheel rendering of test7 <br>
-		<img src="Screen Shot 2024-02-25 at 9.32.21 AM.png" alt="test7">
+		<img src="Screen Shot 2024-02-25 at 9.32.21 AM.png" alt="test7" width="400" 
+     height="500">
 
 		<h1> Task 5 </h1>
 		<br> For this task, we exploit the fact that barycentric coordinates are presevred when we move to texture space. <br>
@@ -44,7 +62,15 @@
 		<br> But since barycentric coordinates are preserved through the mapping, we can compute u,v as alpha*(u0,v0) + beta*(u1,v1)  + gamma*(u2,v2) <br>
 		<br> Then we cal get texel and assign a color to (i,j) accordingly.
 
-		<br> 
+		<br> For the different kinds, there's billinear and nearest. for nearest, We first scale u,v and then round to nearest integer coordinates <br>
+		<br> and get the texel corresponding to this scaled rounded coordinate <br>
+		<br> For billinear, we get the texels of the 4 nearest integer coordinates and take a weighted average of all 4, where the weights are just as in the lecture slides <br>
+
+
+
+
+		<h1> Task 6 </h1>
+		
 
 	</body>
 </html>
