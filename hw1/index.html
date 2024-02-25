@@ -14,6 +14,37 @@
 			<br>and apply the in-triangle test. Instead of just checking > 0, I check for  >= 0 since we want the points on the edge to be considered as well.<br>
 			<br> Also, before performing the in-triangle test, I account for the orientation of the triangle by computing the cross-product of (x1 - x0, y1 - y0) <br>
 			<br> with (x2 - x1, y2 - y1). If the orientation is positive (cross product > 0), I don't change anything. If it is negative I swap x1,x2 and y1,y2 <br>
-			<br> below is an image of test4
+			<br> below is an image of test4 <br>
+			<img src="Screen Shot 2024-02-25 at 8.51.46 AM.png" alt="test4">
+
+		<h1> Task 2 </h1>
+		<br> This task was supersampling. For this, I first modified the sample buffer to be of size sample_size*width*height rather than just width*height <br>
+		<br> Then, for each pixel in the bounding box, I check
+
+
+		<h1> Task 3</h1>
+		<br> Here is the robot. He is dancing - I rotated the torso by 30 degrees and the leg by 45 degrees. <br>
+		<img src="Screen Shot 2024-02-25 at 9.25.14 AM.png" alt="robot">
+
+		<h1> Task 4</h1>
+
+		<br> This task was for barycentric coordinates. The barycentric coordinate system takes any point (x,y) and turns it into a point (alpha, beta, gamma) <br>
+		<br> Where (alpha, beta, gamma) satisfy x = alpha*A_x + beta*B_x + gamma*C_x and y = alpha*A_y + beta*B_y + gamma*C_y and the additional constraint of alpha + beta + gamma = 1. <br>
+		<br> So, we are essentailly representing each point as a weighted average of the points of a triangle. An example is shown below where we have three vertices - R,G,B <br>
+		<img src="Screen Shot 2024-02-25 at 9.49.05 AM.png" alt="simple triangle">
+		<br> We can see how all the colors blend together towards the centre of the triangle <br>
+		<br> Here is the color wheel rendering of test7 <br>
+		<img src="Screen Shot 2024-02-25 at 9.32.21 AM.png" alt="test7">
+
+		<h1> Task 5 </h1>
+		<br> For this task, we exploit the fact that barycentric coordinates are presevred when we move to texture space. <br>
+			
+		<br> an approximate algorithm is described as follows- First we compute the barycentric coordinates of the point in the triangle, <br>
+		<br> Then we move to texture space by the points given to us as arguments. In the original space, we'd compute a point x,y as alpha*A + beta*B  + gamma*C <br>
+		<br> But since barycentric coordinates are preserved through the mapping, we can compute u,v as alpha*(u0,v0) + beta*(u1,v1)  + gamma*(u2,v2) <br>
+		<br> Then we cal get texel and assign a color to (i,j) accordingly.
+
+		<br> 
+
 	</body>
 </html>
