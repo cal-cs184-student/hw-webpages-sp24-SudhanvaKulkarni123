@@ -88,6 +88,26 @@
 
 
 		<h1> Task 6 </h1>
+		<br> for this task, we needed to implement level sampling. Level sampling is the idea of storing our textures at different levels of granularity. <br>
+		<br> When rendering an image, we can choose which "level" to sample from based on our desired resolution. Higher resolution would mean finer details and more granularity and lower would mean sampling from a texture map with lower granularity. <br>
+		<br> In this assignment, I decided what level was required by computing the partial x and y derivatives at the point of interest. <br>
+		<br> As we noted in the previous task, barycentric coordinates are preserved when we go from xy space to uv space. We can use this to compute the partial derivates by finding the barycentric coordinates of the points (x+1,y) and (x,y+1) <br>
+		<br> Then, we can compute d/dx by a finite difference formula -> uv(x+1,y) - uv(x,y). Where uv() is the function that takes points from xy to uv space. We can do the same for the y-derivative and then use the formula from the lecture slides to compute L <br>
+		<br> L is just the log of the max 2-norm of our partial derivatives. The intutition for this formula can be thought of as follows- If we have a higher rate of change when we go from xy to uv space, that means that the textures in our image are changing rapidly across space and so we'd need a higher level. <br>
+		<h2> Tradeoffs-</h2>
+		<br> If we look at tradeoffs between the three approahces, we can first consider memory usage. Pixel sampling is the cheapest since we don't really take up any extra space. <br>
+		<br> On the other hand supersampling requires memory directly proportional to the number of samples per pixel, while sampling requires an even larger memory requirement since we store a L texel maps for each level. <br>
+		<br> In terms of computation time, supersampling is probably the most expensive since the number of flops required scales with the number of samples, on the other hand the number of flops is pretty much constant for pixel and level sampling is always constant. <br>
+		<br> With these tradeoffs in mind, it seems like supersampling and level mapping, while being hard to scale have much stronger anti-aliasing power since they allow for much higher granularity in images. <br>
+		<br> Pixel mapping, while cheap, doesn't really have any scope for scaling and cannot perform exceedingly well on it's own. Regardless of which pixel map technique we use, the image stays relatively the same for the most part. <br>
+		<br> Below are some images for different settings tried on a funky image I found online -
+		<div class="container">
+		  <img src="Screen Shot 2024-02-25 at 5.52.53 PM.png" alt="Nearest pixel, lvl 0" class="image">
+		  <img src="Screen Shot 2024-02-25 at 5.53.19 PM.png" alt="billinear pixel, lvl 0" class="image">
+		  <img src="Screen Shot 2024-02-25 at 5.53.46 PM.png" alt="nearest level, nearest pixel" class="image">
+		  <img src="Screen Shot 2024-02-25 at 5.54.01 PM.png" alt="nearest level, billinear pixel" class="image">
+		</div>
+		
 		
 
 	</body>
