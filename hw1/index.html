@@ -13,15 +13,15 @@
 			<br> Then I check each i,j in the above bounds. For each pixel, I compute the mid point as i + 0.5, j+ 0.5 (with appropriate typecasting)<br>
 			<br>and apply the in-triangle test. Instead of just checking > 0, I check for  >= 0 since we want the points on the edge to be considered as well.<br>
 			<br> Also, before performing the in-triangle test, I account for the orientation of the triangle by computing the cross-product of (x1 - x0, y1 - y0) <br>
-			<br> with (x2 - x1, y2 - y1). If the orientation is positive (cross product > 0), I don't change anything. If it is negative I swap x1,x2 and y1,y2 <br>
+			<br> with (x2 - x1, y2 - y1). If the orientation is positive (cross product > 0), I don't change anything. If it is negative I swap x1,x2 and y1,y2. I also recompute the vectors representing the edges of the traingles since those would change if we swap vertices.<br>
 			<br> below is an image of test4 <br>
 			<img src="Screen Shot 2024-02-25 at 8.51.46 AM.png" alt="test4" width="400" 
      height="500">
 
 		<h1> Task 2 </h1>
-		<br> This task was supersampling. For this, I first modified the sample buffer to be of size sample_size*width*height rather than just width*height <br>
-		<br> Then, for each pixel in the bounding box, I have two inner loops (with variables k and l) running from 1 to sqrt(sample_size) where apply the triangle test on a point (x,y) <br>
-		<br> Where x = i + (k + 0.5)/sqrt(sample_size) and y = j + (k + 0.5)/sqrt(sample_size).I also have an auxillary index variable that I increment whenever the innermost loop is completed. <br>
+		<br> This task was supersampling. For this, I first modified the sample buffer to be of size sample_size*width*height rather than just width*height. I also changes <br>
+		<br> Then, for each pixel in the bounding box, I have two inner loops (with variables k and l) running from 1 to sqrt(sample_size) where I apply the triangle test on a point (x,y) <br>
+		<br> Where x = i + (k + 0.5)/sqrt(sample_size) and y = j + (l + 0.5)/sqrt(sample_size).I also have an auxillary index variable - ind - that I increment whenever one iteration of the innermost loop is completed (so when we increment l). <br>
 		<br> I do this since I set sample_buffer[sample_rate * (y * width + x) + index] = color if the triangle test returns true. <br>
 		<br> When I finish checking all the "sub-pixels", I reset index to be 0. <br>
 		<br> Then, when rendering, to move from sample to frame buffer, I use the following loop <br>
@@ -31,7 +31,7 @@
 		<img src="Screen Shot 2024-02-25 at 10.41.47 AM.png" alt="ss1" width="400" 
      height="500">
 		<br> For an alternative method, I also tried out jittered sampling. For this, I simply changed the x = i + (k + 0.5)/sqrt(sample_size) to be x = i + rnad(0,1)<br>
-		<br> where the random numbers are from the uniform distrbution. Below is a rendering of the same image with jittered sampling <br>
+		<br> where the random numbers are from the uniform distrbution. I then did the same for y. I draw "sample_rate" number of random samples in each pixel. Below is a rendering of the same image with jittered sampling <br>
 		<img src="Screen Shot 2024-02-25 at 10.42.53 AM.png" alt="ss1" width="400" 
      height="500">
         
@@ -68,13 +68,17 @@
 		<br> Here I've included images of texmap/test1.svg using both linear and nearest using sample rates of 1 and 16 respectively <br>
 		<br> Sample rate 1 <br>
 		<div class="container">
-		  <img src="Screen Shot 2024-02-25 at 4.32.31 PM.png" alt="Image 1" class="image">
-		  <img src="Screen Shot 2024-02-25 at 4.32.43 PM.png" alt="Image 2" class="image">
+		  <img src="Screen Shot 2024-02-25 at 4.32.31 PM.png" alt="Image 1" class="image" width="400" 
+     height="500">
+		  <img src="Screen Shot 2024-02-25 at 4.32.43 PM.png" alt="Image 2" class="image" width="400" 
+     height="500">
 		</div>
 		<br> sample rate 16 < br>
 		<div class="container">
-		  <img src="Screen Shot 2024-02-25 at 4.33.53 PM.png" alt="Image 1" class="image">
-		  <img src="Screen Shot 2024-02-25 at 4.34.46 PM.png" alt="Image 2" class="image">
+		  <img src="Screen Shot 2024-02-25 at 4.33.53 PM.png" alt="Image 1" class="image" width="400" 
+     height="500">
+		  <img src="Screen Shot 2024-02-25 at 4.34.46 PM.png" alt="Image 2" class="image" width="400" 
+     height="500">
 		</div>
 		<br> We can see that billinear appears slighly blurry while the images using nearest appear very crisp. <br>
 		<br> This is to be expected since billinear filtering takes a weighted average of neighboring points. It is similar to the barycentric color triangle in that sense. <br>
@@ -102,10 +106,14 @@
 		<br> Pixel mapping, while cheap, doesn't really have any scope for scaling and cannot perform exceedingly well on it's own. Regardless of which pixel map technique we use, the image stays relatively the same for the most part. <br>
 		<br> Below are some images for different settings tried on a funky image I found online -
 		<div class="container">
-		  <img src="Screen Shot 2024-02-25 at 5.52.53 PM.png" alt="Nearest pixel, lvl 0" class="image">
-		  <img src="Screen Shot 2024-02-25 at 5.53.19 PM.png" alt="billinear pixel, lvl 0" class="image">
-		  <img src="Screen Shot 2024-02-25 at 5.53.46 PM.png" alt="nearest level, nearest pixel" class="image">
-		  <img src="Screen Shot 2024-02-25 at 5.54.01 PM.png" alt="nearest level, billinear pixel" class="image">
+		  <img src="Screen Shot 2024-02-25 at 5.52.53 PM.png" alt="Nearest pixel, lvl 0" class="image" width="400" 
+     height="500">
+		  <img src="Screen Shot 2024-02-25 at 5.53.19 PM.png" alt="billinear pixel, lvl 0" class="image" width="400" 
+     height="500">
+		  <img src="Screen Shot 2024-02-25 at 5.53.46 PM.png" alt="nearest level, nearest pixel" class="image" width="400" 
+     height="500">
+		  <img src="Screen Shot 2024-02-25 at 5.54.01 PM.png" alt="nearest level, billinear pixel" class="image" width="400" 
+     height="500">
 		</div>
 		
 		
