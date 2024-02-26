@@ -65,7 +65,25 @@
 		<br> For the different kinds, there's billinear and nearest. for nearest, We first scale u,v and then round to nearest integer coordinates <br>
 		<br> and get the texel corresponding to this scaled rounded coordinate <br>
 		<br> For billinear, we get the texels of the 4 nearest integer coordinates and take a weighted average of all 4, where the weights are just as in the lecture slides <br>
-
+		<br> Here I've included images of texmap/test1.svg using both linear and nearest using sample rates of 1 and 16 respectively <br>
+		<br> Sample rate 1 <br>
+		<div class="container">
+		  <img src="image1.jpg" alt="Image 1" class="image">
+		  <img src="image2.jpg" alt="Image 2" class="image">
+		</div>
+		<br> sample rate 16 < br>
+		<div class="container">
+		  <img src="image1.jpg" alt="Image 1" class="image">
+		  <img src="image2.jpg" alt="Image 2" class="image">
+		</div>
+		<br> We can see that billinear appears slighly blurry while the images using nearest appear very crisp. <br>
+		<br> This is to be expected since billinear filtering takes a weighted average of neighboring points. It is similar to the barycentric color triangle in that sense. <br>
+		<br> The differences between the two will likely be the most pronounced when we are rendering images that have rapid and discontinuous transitions between distinct textures. <br>
+		<br> the boundaries between both the distinct regions will be sharp for the nearest case. But for the billinear case, the boundary will be very blurred and almost invisible. <br>
+		
+			
+		
+		
 
 
 
