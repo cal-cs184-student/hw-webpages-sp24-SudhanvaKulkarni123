@@ -28,11 +28,11 @@
 		<br> for (int ind = 0; ind less than sample_rate; ind++) col = col + sample_buffer[sample_rate * (y * width + x) + ind]; <br>
 		<br> Finally, I avergae it out by dividing by sample size <br>
 		<br> Here is a rendering of test4 <br>
-		img src="Screen Shot 2024-02-25 at 10.41.47 AM.png" alt="ss1" width="400" 
+		<img src="Screen Shot 2024-02-25 at 10.41.47 AM.png" alt="ss1" width="400" 
      height="500">
 		<br> For an alternative method, I also tried out jittered sampling. For this, I simply changed the x = i + (k + 0.5)/sqrt(sample_size) to be x = i + rnad(0,1)<br>
 		<br> where the random numbers are from the uniform distrbution. Below is a rendering of the same image with jittered sampling <br>
-		img src="Screen Shot 2024-02-25 at 10.42.53 AM.png" alt="ss1" width="400" 
+		<img src="Screen Shot 2024-02-25 at 10.42.53 AM.png" alt="ss1" width="400" 
      height="500">
         
 
@@ -68,13 +68,13 @@
 		<br> Here I've included images of texmap/test1.svg using both linear and nearest using sample rates of 1 and 16 respectively <br>
 		<br> Sample rate 1 <br>
 		<div class="container">
-		  <img src="image1.jpg" alt="Image 1" class="image">
-		  <img src="image2.jpg" alt="Image 2" class="image">
+		  <img src="Screen Shot 2024-02-25 at 4.32.31 PM.png" alt="Image 1" class="image">
+		  <img src="Screen Shot 2024-02-25 at 4.32.43 PM.png" alt="Image 2" class="image">
 		</div>
 		<br> sample rate 16 < br>
 		<div class="container">
-		  <img src="image1.jpg" alt="Image 1" class="image">
-		  <img src="image2.jpg" alt="Image 2" class="image">
+		  <img src="Screen Shot 2024-02-25 at 4.33.53 PM.png" alt="Image 1" class="image">
+		  <img src="Screen Shot 2024-02-25 at 4.34.46 PM.png" alt="Image 2" class="image">
 		</div>
 		<br> We can see that billinear appears slighly blurry while the images using nearest appear very crisp. <br>
 		<br> This is to be expected since billinear filtering takes a weighted average of neighboring points. It is similar to the barycentric color triangle in that sense. <br>
