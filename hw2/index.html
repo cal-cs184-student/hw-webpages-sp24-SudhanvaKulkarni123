@@ -28,6 +28,14 @@
 		<img src="Screen Shot 2024-02-27 at 8.50.37 PM.png" 
      width="400" 
      height="500" />
+		<br>
+		Here are splines for slughlty modified set of points and a different value of t
+		<img src="Screen Shot 2024-02-28 at 12.31.10 AM.png" 
+     width="400" 
+     height="500" />
+		<img src="SScreen Shot 2024-02-28 at 12.31.27 AM.png" 
+     width="400" 
+     height="500" />
 
 
 
@@ -56,8 +64,10 @@
 		First, note that since every element is just a triangle, we can calculate it's area as a*b*sin(theta)/2 or just 0.5*cross(a,b). <br>
 		So we just need to calculate the vectors for a and b and then plug it into the given cross function. So, we can iterate through all neighbor <br>
 		faces, get the vector of two edges of the traingle, then add this cross product to a running sum which starts at 0 vector. <br>
-		After all that, normalize the vector by caling the unit() method.
-		
+		After all that, normalize the vector by caling the unit() method. Below I've provided a diagram to complement the explanation
+		<img src="cross_prdt.png" 
+     width="400" 
+     height="500" />
 		
 
 
@@ -76,6 +86,13 @@
 		First I got the half edge h0, and then with calls to next() and twin(), I got all the half edges in the "before" diagram. From the half edges, <br>
 		I obtained all the edgeIters, faceIters and vertexIers with appropriate halfedge methods. After I collected everything, I just reasigned everything <br> 
 		according the te "after" diagram using the setNeighbours() method for halfedges. For vertices, faces and edges, I just updated the halfedge by say _->halfedge() = h (h is the appropriate halfedge) <br>
+		The before and after diagrams are shown below- <br> <br> <br>
+		<img src="orig.png" 
+     width="400" 
+     height="500" />
+		<img src="flip.png" 
+     width="400" 
+     height="500" />
 		
 
 
@@ -96,9 +113,22 @@
 		Then I collected all the other objects by using the "before" image. Thn, before starting pointer reassignment, I created all the new halfedges required, along with the new faces, new vertex and new edges. <br>
 		Finally, I reassigned using set_Neighbours and _->halfedge() with the help of the "after" image. I also set vertex->position to be the midpoint of the edge we are splitting. <br>
 		Midpoint was computed by as 0.5*(h->vertex()->position + h->twin()->vertex()->position)<br>
+		Here is an image describing an approx transition. I've removed labels to avoid cluttering
+		<br>
+		<img src="orig.png" 
+     width="400" 
+     height="500" />
+		<img src="split.png" 
+     width="400" 
+     height="500" />
 		<br>
 		<br>
 		I also implemented splitting for edges. for that, Instead of the the conventional images, the new "before" image was just an iscosceles triangle - the after just had the traingle's altitude labelled.<br>
+		Here is an approx image of the transition
+		<img src="half_split.png" 
+     width="400" 
+     height="500" />
+		
 		
 		To check that it works, I used the "beetle" image, I've split some of the edges on the bottom boundary as seen below. <br>
 		First image is without splits, second is with splits. <br>
