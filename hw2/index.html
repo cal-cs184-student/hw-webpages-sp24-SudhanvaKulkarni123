@@ -2,6 +2,19 @@
 	<head>
 	</head>
 	<body>
-		Homework 2 index.html here
+		<h1> Overview </h1>
+		In this homework, I implemented some basic algorithms for geometry processing. 
+
+		<h1> Task 1 </h1>
+		For this task I implemented de Casteljau's algorithm for Bezier curve evaluation. A simple description of the algorithm is as follows- <br>
+		Given a set of n control points (say stored in a length n array called Control_points) and a parameter t, we recursively compute an array of length n-1 <br>
+		Where the i-th  element of the array is given by t*Control_points[i+1] + (1-t)*Control_points[i]. this recursive step is coded in the function BezierCurve::evaluateStep() <br>
+		We then recursively call this function n times until we are left with one element. This last element, along with the first and last of our control points are then used <br>
+		to construct a cubic polynomial. One can also use piecewise interpolation when we have a large number of points that are arranged in a jagged maner - i.e, we'd divide <br> 
+		the array into k contiguous sub-arrays of length n/k and then form cubic polynomials for each sub-array. We'd then connect the polynomial from each sub-array. <br>
+		Below I've presented some images of a curve formed with 6 control points stored in m_curve.bzc <br>
+		<img src="https://ik.imagekit.io/ikmedia/women-dress-2.jpg" 
+     width="400" 
+     height="500" />
 	</body>
 </html>
