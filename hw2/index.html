@@ -13,8 +13,97 @@
 		to construct a cubic polynomial. One can also use piecewise interpolation when we have a large number of points that are arranged in a jagged maner - i.e, we'd divide <br> 
 		the array into k contiguous sub-arrays of length n/k and then form cubic polynomials for each sub-array. We'd then connect the polynomial from each sub-array. <br>
 		Below I've presented some images of a curve formed with 6 control points stored in m_curve.bzc <br>
-		<img src="https://ik.imagekit.io/ikmedia/women-dress-2.jpg" 
+		<img src="Screen Shot 2024-02-27 at 8.47.19 PM.png" 
      width="400" 
      height="500" />
+		<img src="Screen Shot 2024-02-27 at 8.48.28 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 8.49.07 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 8.49.43 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 8.50.37 PM.png" 
+     width="400" 
+     height="500" />
+
+
+
+
+		<h2> Task 2</h2>
+		Before the explanation, here is an image of the rendered pot <br>
+		<img src="Screen Shot 2024-02-27 at 8.57.24 PM.png" 
+     width="400" 
+     height="500" />
+		Bezier curves genenralize to surfaces in an intuitive way. If we are given a grid of n*n control points, we look at the grid column-by-column first. <br>
+		Apply the above recursive algorithm with each column using t=u. Then, we would have condensed an n*n grid into n points - one final point for each column. <br>
+		After that, we perform de Casteljau on the newly derived n points, but now using t=v. <br>
+		In the code implementation, the evaluateId function deals with a column of n points. So, we first call that on each of our n columns with t = u. <br>
+		Further, we store the results of each of the above computations in a std::vec. This array will be length n. We then call evaluateId on this new array with t=v. <br>
+
+
+		<h3> Task 3 </h3>
+		Again, here's the images before the explanation. The images arre with shader on and off respectively <br>
+		<img src="Screen Shot 2024-02-27 at 9.02.29 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 9.03.11 PM.png" 
+     width="400" 
+     height="500" />
+		The algorihtm to compute weighted normal is as follows-
+		First, note that since every element is just a triangle, we can calculate it's area as a*b*sin(theta)/2 or just 0.5*cross(a,b). <br>
+		So we just need to calculate the vectors for a and b and then plug it into the given cross function. So, we can iterate through all neighbor <br>
+		faces, get the vector of two edges as shown in the figure below (this is done by taking difference of position vectors), then add this cross product to a running sum which starts at 0 vector. <br>
+		After all that, normalize the vector by caling the unit() method.
+		<img src="Screen Shot 2024-02-27 at 8.57.24 PM.png" 
+     width="400" 
+     height="500" />
+		
+
+
+
+		<h4> Task 4</h4>
+		Pictures - <br>
+
+		For edge flip, the entire algorithm is just a lot of pointer reassignments. To implement it, I drew out the labelled images shown below. <br>
+		One I had the labels of before and after, it was just a matter of collecting all the mesh elements and reassign. <br>
+		First I got the half edge h0, and then with calls to next() and twin(), I got all the half edges in the "before" diagram. From the half edges, <br>
+		I obtained all the edgeIters, faceIters and vertexIers with appropriate halfedge methods. After I collected everything, I just reasigned everything <br> 
+		according the te "after" diagram using the setNeighbours() method for halfedges. For vertices, faces and edges, I just updated the halfedge by say _->halfedge() = h (h is the appropriate halfedge) <br>
+		
+
+
+		<h5> Task 5</h5>
+		Pictures - <br>
+
+		My method for edge split was very similar to edge flip. I drew out befores and afters and then collected all the halfedges with calls to next() and twin().<br>
+		Then I collected all the other objects by using the "before" image. Thn, before starting pointer reassignment, I created all the new halfedges required, along with the 2 new faces, 1 new vertex and new edges. <br>
+		Finally, I reassigned using set_Neighbours and _->halfedge() with the help of the "after" image. I also set vertex->position to be the midpoint of the edge we are splitting. <br>
+		Midpoint was computed by as 0.5*(h->vertex()->position + h->twin()->vertex()->position)<br>
+		<br>
+		<br>
+		I also implemented splitting for edges. for that, I used the "before" and "after figures presented below. To check that it works, I used the "beetle" image, I've zoomed in on split edges.
+
+		
+
+
+
+		<h6> Task 6 </h6>
+		Final task! This was implemented as suggested by the comments in the starter code. First I computed the new positions of all the vertices using the (1 - n * u) * original_position + u * original_neighbor_position_sum formula. <br>
+		Wher u is 3/16 if the degree of the vertex is 3 and it is 3/8n otherwise (n is degree). I also marked each vertex by setting isNew to be false. <br>
+		Then, I ran through all edges and computed their new position by using the (3(A+B) + C + D)/8 formula. I then split the edges all the old edges while mantaining an array of new_edges. <br>
+		When we split one edge, we get two new ones, and two not really new ones since when you take the union of te two "not new" ones, you just get the old edge. <br>
+		Keeping that in mind, I only add the truly new edges to the array of new edges. I then mark all the newly generated edges by setting isNew = true. <br>
+		Also, for the newly obtained vertex, I set its position to be the newPosition of the edge that we split. <br>
+		Finally, I iterate through the array of new_edges and flip all those edges that connect new vertices to old vertices (so isNew is true for one and not for the other). <br>
+		After the flipping, I set vertex->position = vertex->newPosition for all old vertices.
+		
+
+
+		
+		
+		
 	</body>
 </html>
