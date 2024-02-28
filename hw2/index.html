@@ -65,7 +65,13 @@
 
 
 		<h4> Task 4</h4>
-		Pictures - <br>
+		Pictures - first is before flips, then is after<br>
+		<img src="Screen Shot 2024-02-27 at 11.16.56 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 11.18.24 PM.png" 
+     width="400" 
+     height="500" />
 
 		For edge flip, the entire algorithm is just a lot of pointer reassignments. To implement it, I drew out the labelled images shown below. <br>
 		One I had the labels of before and after, it was just a matter of collecting all the mesh elements and reassign. <br>
@@ -76,15 +82,36 @@
 
 
 		<h5> Task 5</h5>
-		Pictures - <br>
+		Pictures - First is the vanilla pot, then is only with splits, then is splits and flips <br>
+		<img src="Screen Shot 2024-02-27 at 11.21.55 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 11.22.45 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 11.24.07 PM.png" 
+     width="400" 
+     height="500" />
+		
 
 		My method for edge split was very similar to edge flip. I drew out befores and afters and then collected all the halfedges with calls to next() and twin().<br>
-		Then I collected all the other objects by using the "before" image. Thn, before starting pointer reassignment, I created all the new halfedges required, along with the 2 new faces, 1 new vertex and new edges. <br>
+		Then I collected all the other objects by using the "before" image. Thn, before starting pointer reassignment, I created all the new halfedges required, along with the new faces, new vertex and new edges. <br>
 		Finally, I reassigned using set_Neighbours and _->halfedge() with the help of the "after" image. I also set vertex->position to be the midpoint of the edge we are splitting. <br>
 		Midpoint was computed by as 0.5*(h->vertex()->position + h->twin()->vertex()->position)<br>
 		<br>
 		<br>
-		I also implemented splitting for edges. for that, I used the "before" and "after figures presented below. To check that it works, I used the "beetle" image, I've zoomed in on split edges.
+		I also implemented splitting for edges. for that, I used the "before" and "after figures presented below.<br>
+		
+		To check that it works, I used the "beetle" image, I've split some of the edges on the bottom boundary as seen below. <br>
+		First image is without splits, second is with splits. <br>
+		<img src="Screen Shot 2024-02-27 at 11.25.39 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 11.27.20 PM.png" 
+     width="400" 
+     height="500" />
+			
+		
 
 		
 
@@ -99,6 +126,19 @@
 		Also, for the newly obtained vertex, I set its position to be the newPosition of the edge that we split. <br>
 		Finally, I iterate through the array of new_edges and flip all those edges that connect new vertices to old vertices (so isNew is true for one and not for the other). <br>
 		After the flipping, I set vertex->position = vertex->newPosition for all old vertices.
+		<br>
+		The sharp edges get much smoother as we refine the mesh. This is easily seen in the cintext of the cube. after playing around for a bit, I noticed I can increase the sharpness <br>
+		at some given vertex by just increasing its degree. The evidence for that is seen in the before and after below-
+
+
+		<br>
+		Then, to ensure that the cube splits symmetrically, I just split all the diagonals on all faces so that every face has an "X" mark. The resultant cube is symmetric. <br>
+		<img src="Screen Shot 2024-02-27 at 11.49.09 PM.png" 
+     width="400" 
+     height="500" />
+		<img src="Screen Shot 2024-02-27 at 11.49.27 PM.png" 
+     width="400" 
+     height="500" />
 		
 
 
