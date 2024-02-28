@@ -155,24 +155,96 @@
 		Finally, I iterate through the array of new_edges and flip all those edges that connect new vertices to old vertices (so isNew is true for one and not for the other). <br>
 		After the flipping, I set vertex->position = vertex->newPosition for all old vertices.
 		<br>
-		The sharp edges get much smoother as we refine the mesh. This is easily seen in the cintext of the cube. after playing around for a bit, I noticed I can increase the sharpness <br>
-		at some given vertex by just increasing its degree. The evidence for that is seen in the pic  below where I concentrated all edges on one vertex-
-<img src="Screen Shot 2024-02-27 at 11.53.12 PM.png" 
-     width="400" 
-     height="500" />
-		
-
+		The sharp edges and vertices get much smoother as we refine the mesh. This is easily seen in the cube. Below I've included images of a gradual transition-
+		<img src="Screen Shot 2024-02-28 at 12.01.55 PM.png" 
+     width="200" 
+     height="200" />
+		<img src="Screen Shot 2024-02-28 at 12.02.20 PM.png" 
+     width="200" 
+     height="200" />
+		<img src="Screen Shot 2024-02-28 at 12.02.33 PM.png" 
+     width="200" 
+     height="200" />
+		<img src="Screen Shot 2024-02-28 at 12.02.45 PM.png" 
+     width="200" 
+     height="200" />
+		<img src="Screen Shot 2024-02-28 at 12.02.58 PM.png"
+			width="200"
+			heigh="200" />
 
 		<br>
 		Then, to ensure that the cube splits symmetrically, I just split all the diagonals on all faces so that every face has an "X" mark. The resultant cube is symmetric. <br>
-		<img src="Screen Shot 2024-02-27 at 11.49.09 PM.png" 
+		<img src="Screen Shot 2024-02-28 at 12.03.43 PM.png" 
+     width="200" 
+     height="200" />
+		<img src="Screen Shot 2024-02-28 at 12.03.59 PM.png" 
      width="400" 
      height="500" />
-		<img src="Screen Shot 2024-02-27 at 11.49.27 PM.png" 
+		<br> An intuitive explanation for this is as follows- When we don't have the X mark on every face, when we split and flip we have a bias in the direction opposite to the <br>
+		direction of the diagonals since we don't flip the edges that conpose the original edge. Because of this, we have a slightly larger growth in one direction. <br>
+		To ensure equal growth in both directions, we can just add a diagonal that goes the other way. This will give a bias to both directions, which evens out to give us a symmetric cube. <br>
+		We can also go a step further and make a "*" mark instead of "X". <br>
+
+		<br>
+		<br>
+		To increase sharpness of an edge, I found that it helps to keep splitting the diagonals of the faces incident on that edge. i.e, the more sub-faces a faces has, the sharper its edges become. <br>
+		An example is displayed below where I formed the following pattern on all faces. 
+		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
      width="400" 
      height="500" />
+		<br>
+		<img src="Screen Shot 2024-02-28 at 1.13.39 PM.png" 
+     width="400" 
+     height="500" />
+		<br>
+		Finally, I made changes to account for boundary elements. For vertices, I update their new position to be 0.75*old_position + 0.125*(sum of positions of neighbouring boundary vertices) <br>
+		Then for an edge (p0,p1) I set the newPostion to be 0.5*(old_pos of p0 + old_pos of p1) <br>
+		Below I've pasted pictures of the refined and unrefined beetle to show how it works.
+		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+     width="400" 
+     height="500" />
+		<br>
+		<img src="Screen Shot 2024-02-28 at 1.13.39 PM.png" 
+     width="400" 
+     height="500" />
+		<br>
+		Finally, I also implemented root3 subdivision. For this, I had to define a new HalfEdgeMesh method called AddCentroid. This method takes in a FaceIter f and returns a VertexIter v3. <br>
+		Its implementation is similar to that of split edge, where we make a few new objects and just perform pointer reassignments. The transition diagram is shown below. <br>
+		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+     width="400" 
+     height="500" />
+		<br>
+		For the new position of the vertices, we use the formula (1 - alpha)*old_pos + alpha*sum_of_neighbours/n - where n is the degree and alpha = (4 - 2*cos(2pi/n))/9. <br>
+		The position of new vertices is just the centroid and so it is just (p0 + p1 + p2)/3. <br>
+		Now, the algorihtm proceeds as follows- <br>
+		First mark all faces, edges and vertices to be old. <br>
+		Then, compute new position of vertices as described above. <br>
+		Next, call addCentroid on all the old faces, while marking the 3 newly obtained faces to be new. Also mark the edges belonging to the input face as being old and the other 3 edges as being new. Same for vertices <br>
+		Assign the new vertex position to be the centroid of the input face. <br>
+		Finally, flip all the old edges. <br>
+		<br>
+		Root3 subdivision seems to behave much more symmetrically than the vanilla subdivision scheme. This is to be expected since we are adding new points and edges in a more symmetric fashion since we use the centroid of every face <br>
+		Here is an example of the refined cube.dae (without any modifications). While it is not entirely symmetric, it is more symmetric than the vanilla subdivision. <br>
+		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+     width="400" 
+     height="500" />
+		<br>
+		Here is an example of a refined torus as well, and a cube with an "X" pattern on every face- <br>
+		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+     width="400" 
+     height="500" />
+		<br>
+		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+     width="400" 
+     height="500" />
+		<br>
+		
+		
+		
 		
 
+
+		
 
 		
 		
