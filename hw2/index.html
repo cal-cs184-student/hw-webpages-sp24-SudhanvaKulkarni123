@@ -34,7 +34,7 @@
 		<img src="Screen Shot 2024-02-28 at 12.31.10 AM.png" 
      width="300" 
      height="300" />
-		<img src="SScreen Shot 2024-02-28 at 12.31.27 AM.png" 
+		<img src="Screen Shot 2024-02-28 at 12.31.27 AM.png" 
      width="300" 
      height="300" />
 
@@ -178,7 +178,7 @@
 		Finally, I iterate through the array of new_edges and flip all those edges that connect new vertices to old vertices (so isNew is true for one and not for the other). <br>
 		After the flipping, I set vertex->position = vertex->newPosition for all old vertices.
 		<br>
-		The sharp edges and vertices get much smoother as we refine the mesh. This is easily seen in the cube. Below I've included images of a gradual transition-
+		The sharp edges and vertices get much smoother as we refine the mesh. This is easily seen in the cube. Below I've included images of a gradual transition- <br>
 		<img src="Screen Shot 2024-02-28 at 12.01.55 PM.png" 
      width="150" 
      height="150" />
@@ -223,11 +223,11 @@
 		Finally, I made changes to account for boundary elements. For vertices, I update their new position to be 0.75*old_position + 0.125*(sum of positions of neighbouring boundary vertices) <br>
 		Then for an edge (p0,p1) I set the newPostion to be 0.5*(old_pos of p0 + old_pos of p1) <br>
 		Below I've pasted pictures of the refined and unrefined beetle to show how it works.
-		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+		<img src="Screen Shot 2024-02-28 at 12.09.56 PM.png" 
      width="200" 
      height="200" />
 		<br>
-		<img src="Screen Shot 2024-02-28 at 1.13.39 PM.png" 
+		<img src="Screen Shot 2024-02-28 at 12.10.11 PM.png" 
      width="200" 
      height="200" />
 		<br>
