@@ -211,7 +211,7 @@
 		<br>
 		<br>
 		To increase sharpness of an edge, I found that it helps to keep splitting the diagonals of the faces incident on that edge. i.e, the more sub-faces a faces has, the sharper its edges become. <br>
-		An example is displayed below where I formed the following pattern on all faces. 
+		An example is displayed below where I formed the following pattern on all faces. <br>
 		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
      width="200" 
      height="200" />
@@ -222,7 +222,7 @@
 		<br>
 		Finally, I made changes to account for boundary elements. For vertices, I update their new position to be 0.75*old_position + 0.125*(sum of positions of neighbouring boundary vertices) <br>
 		Then for an edge (p0,p1) I set the newPostion to be 0.5*(old_pos of p0 + old_pos of p1) <br>
-		Below I've pasted pictures of the refined and unrefined beetle to show how it works.
+		Below I've pasted pictures of the refined and unrefined beetle to show how it works. <br>
 		<img src="Screen Shot 2024-02-28 at 12.09.56 PM.png" 
      width="200" 
      height="200" />
@@ -248,19 +248,28 @@
 		<br>
 		Root3 subdivision seems to behave much more symmetrically than the vanilla subdivision scheme. This is to be expected since we are adding new points and edges in a more symmetric fashion since we use the centroid of every face <br>
 		Here is an example of the refined cube.dae (without any modifications). While it is not entirely symmetric, it is more symmetric than the vanilla subdivision. <br>
-		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+		<img src="Screen Shot 2024-02-28 at 9.24.43 PM.png" 
      width="200" 
      height="200" />
 		<br>
-		Here is an example of a refined torus as well, and a cube with an "X" pattern on every face- <br>
-		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+		Here is an example of a refined torus as well, and a cube with an "X" pattern on every face. The images shown are after 2 and 4 steps of refinement- <br>
+		<img src="Screen Shot 2024-02-28 at 12.17.53 PM.png" 
      width="200" 
      height="200" />
 		<br>
-		<img src="Screen Shot 2024-02-28 at 1.13.00 PM.png" 
+		<img src="Screen Shot 2024-02-28 at 12.17.53 PM.png" 
      width="200" 
      height="200" />
 		<br>
+		<img src="Screen Shot 2024-02-28 at 12.18.37 PM.png" 
+     width="200" 
+     height="200" />
+		<br>
+		<img src="Screen Shot 2024-02-28 at 12.18.50 PM.png" 
+     width="200" 
+     height="200" />
+		<br>
+		the new method can be tested by uncommenting the #define SQRT3 on top.
 		
 		
 		
