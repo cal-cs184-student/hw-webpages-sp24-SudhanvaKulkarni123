@@ -2,6 +2,71 @@
 	<head>
 	</head>
 	<body>
-		Homework 3 index.html here
+		<h1> Overview</h1>
+		In this homework, I implemented some simple algorithms 
+
+		<h2> Task 1</h2>
+		First I'll describe the ray generation algorithm. <br>
+		To start, I generate an input vector3D called dir and set it equal to Vector3D(2*x*tan(radians(0.5*hFov)) -  tan(radians(0.5*hFov)),2*y*tan(radians(0.5*vFov)) -  tan(radians(0.5*vFov)), -1.0) <br>
+		The assignment was just decided by the image provided in the spec. The idea is to construct a linear map that takes (0,0) to (-tan(radians(0.5*hFov)), -tan(radians(0.5*vFov)) and (1,1) to (tan(radians(0.5*hFov)), tan(radians(0.5*vFov)) <br>
+		We can verify that the above map satisfies those assignments. We then apply the constructed map on (x,y) <br>
+		Then, since we are moving to the plane z = -1, we set the third component of the vector to be -1. <br>
+		To move to world frame from camera frame, we then multiply dir by the c2w matrix and normalize it. <br>
+		We then generate a ray with o = pos and d = dir. We then set min_t and max_t to be nclip and fclip respectively. <br>
+
+		<br><br>
+		<br><br>
+		Now we describe the triangle interscetion algorihtm. For thsi, we just use Moller Trumbore, it is described below. <br>
+		First define the edge vectors of the triangle as e1 = (p1,p2) = p2 - p1 ,e2 = (p1.p3) = p3 - p1 <br>
+		Then define the s vectors s,s1 and s2. Set s = (p1,o) where o is the origin of the ray. Set s1 to be cross(d,e2) where d is the direction vector of the ray, and finally s2 to be cross(s,e1). <br>
+		Finally, we will define a vector containing the "time" of the ray (or t) and the barycentric coordinates of the point where the intersection occurs. <br>
+		We define this augmented vector as res and set res = (t,b1,b2) = (dot(s2,e2), dot(s1,s), dot(s2,r.d))/dot(s1,e1). If the ray does intersect the triangle primitive, the below boolean expression will be true - <br>
+		(t > r.min_t) && (t <= r.max_t) && (1.0 - b1 - b2 >= 0.0) && (b2 >= 0.0) && (b1 >= 0.0). The first two subexpressions check that the ray os visible, the last two check that the intersection point is an interior point of the triangle. <br>
+		If the intersection happens, we set max_t of the ray to be t and update the intersection structure so that isect->normal = (1.0 - b1  - b2)*n1 + b1*n2 + b2*n3, isect->primitive = this triangle, isect->t = t. <br>
+		For bsdf, we just call the function get_bsdf(). <br>
+
+		<br><br>
+		<br><br>
+		Now for sphere intersection- <br>
+		we solve a quadratic equation ax^2 + bx + c using quadratic formula, where a = dot(ray.d,ray.d), b = 2.0*dot(ray.o - centre_of_sphere,ray.d), c = dot(r.o - centre_of_sphere,r.o - centre_of_sphere) -  radius^2;<br>
+		We check if we get complex roots by seeing if D = b^2 - 4ac < 0. If, yes we don't have an intersection. Else, we set t1 = min((-b + sqrt(D))/(2.0 * a), (-b - sqrt(D))/(2.0 * a)) and t2 = max((-b + sqrt(D))/(2.0 * a), (-b - sqrt(D))/(2.0 * a)) <br>
+		We then update ray.max_t = t1, and update intersction fields just as in the case of the triangle, except for the normal vector which is now the normalized version of ray.o + t1*ray.d - centre. <br>
+
+
+		<br><br>
+		<br><br>
+		Here's some rendered images-
+		
+  
+			
+		
+
+
+
+		<h3>Task 2</h3>
+
+
+
+		<h4>Task 3</h4>
+
+
+
+		<h5> Task 4</h5>
+		
+
+
+
+		<h6> Task 5</h6>
+		This task was about adaptive sampling. Adaptive sampling is basically the idea that we don't need to take the same number of samples to estimate the integral over every pixel. <br>
+		Instead, we can sample enough just so that we have assurance that the integral over that pixel has convereged to a reasonable extent. <br>
+		We define "reasonable extent" with the help of confidence intervals. What this translates to i terms of equations is as follows- <br>
+		we first define I = 1.96*running_std_dev/sqrt(num_running_samples). Then, we check if I <= maxTolerance*(running_mean). If the check is true, we stop generating further samples and use the integral value we currently have. <br>
+		In terms of the actual implementation, we add a count variable for the totoal number of samples thus far (it is basically i+1). <br>
+		We then add variables s1,s2 for the running sum and running sum of squares respectively. <br>
+		Then, whenever count % samplesPerBatch == 0, we update the running mean as s1/double(count) and running variance as (s2 - s1*s1/double(count))/double(count-1). <br>
+		Finally compute I and check the aforementioned condition for whether we should terminate or not. Once we terminate, we set sampleCountBuffer[x + y * sampleBuffer.w] = count <br>
+		Here as the aimges - <br>
+			
+		
 	</body>
 </html>
