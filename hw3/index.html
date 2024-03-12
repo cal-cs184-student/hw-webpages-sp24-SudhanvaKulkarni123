@@ -29,7 +29,7 @@
 		<br><br>
 		Now for sphere intersection- <br>
 		we solve a quadratic equation ax^2 + bx + c using quadratic formula, where a = dot(ray.d,ray.d), b = 2.0*dot(ray.o - centre_of_sphere,ray.d), c = dot(r.o - centre_of_sphere,r.o - centre_of_sphere) -  radius^2;<br>
-		We check if we get complex roots by seeing if D = b^2 - 4ac < 0. If, yes we don't have an intersection. Else, we set t1 = min((-b + sqrt(D))/(2.0 * a), (-b - sqrt(D))/(2.0 * a)) and t2 = max((-b + sqrt(D))/(2.0 * a), (-b - sqrt(D))/(2.0 * a)) <br>
+		We check if we get complex roots by seeing if D = b^2 - 4ac is less than 0. If, yes we don't have an intersection. Else, we set t1 = min((-b + sqrt(D))/(2.0 * a), (-b - sqrt(D))/(2.0 * a)) and t2 = max((-b + sqrt(D))/(2.0 * a), (-b - sqrt(D))/(2.0 * a)) <br>
 		We then update ray.max_t = t1, and update intersction fields just as in the case of the triangle, except for the normal vector which is now the normalized version of ray.o + t1*ray.d - centre. <br>
 
 
