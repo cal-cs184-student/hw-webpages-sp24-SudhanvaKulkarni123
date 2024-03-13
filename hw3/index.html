@@ -45,11 +45,16 @@
 
 		<h3>Task 2</h3>
 		This taks was the implementation of BVH (I also tried BIH which is done in the EC section). Our BVH algorithm works as follows - <br>
-		First, initialize a bounding box (bb) to compute the aggregated bb of all our primitives. We'll also keep track of the centroid with 
+		First, initialize a bounding box (bb) to compute the aggregated bb of all our primitives. We'll also keep track of the centroid with an instance of BoundingBox. <br>
+		Then we run through all our primitives and add them to the bounding box while adding the running centroid to the centroid box. Then, if the number of primitives is less than the limit, <br>
+		we are dealing with a leaf node, so we just assign start and end to be the start and end of the vector of primitives, assign left and right to be nullptrs. And finally assign the bbox to be the bounding box we constructed earlier. <br>
+		If the number of primitives is more than the limit, we are ot dealing with a leaf node so we need to call the constructor recursively to create the left and right children of this node.
 
 
 
 		<h4>Task 3</h4>
+		This task was for direct illumination. For this, we need to model two things- one bounce and zero bounce raiation. For reflections, we first modify the functions f and sample_f to characterize the reflective properties of our objects. <br>
+			
 
 
 
