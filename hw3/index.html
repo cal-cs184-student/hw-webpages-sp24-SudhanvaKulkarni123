@@ -55,12 +55,57 @@
 		<h4>Task 3</h4>
 		This task was for direct illumination. For this, we need to model two things- one bounce and zero bounce raiation. For reflections, we first modify the functions f and sample_f to characterize the reflective properties of our objects. <br>
 		In our case, we assume diffuse bsdf, so f just returns reflectance/2*PI. sample_f does the same thing except it also generates a sample for w_i. <br>
-		Then, we need to
+		Then, we need to implmenet the zero bounce radiance function. This is done by just calculating the emmission of the intersected object which can be done by the call isect.bsdf->get_emission(). <br>
+		Finally, we need to implement one bounce radiance. Here, we try to integrate all possible paths that arrive at our pixel from other points in the scene. Two types of one bounce functions are used - direct_hemisphere sampling based <br>
+		and importance sampling based. <br>
+		For hemisphere sampling, the approx algorithm is as follows-<br>
+		iterate  num_sample times <br>
+		set wi = uniform hemishpere sample <br>
+		convert wi to a direction through mult by o2w matrix  <br>
+		generate a new ray called sample = Ray(hit_p + EPS_F*dir, dir) <br>
+		Then check for intersection with the current bvh (call the intersection structure newIsect.
+		If true, increment L_out by isect.bsdf->f(w_out, wi) * cos_theta(wi))*newIsect.bsdf->get_emission()
+
+		Then once the loop is done scale L_out by 2.0 * PI (the pdf) and divide by num_samples to get the final result.
+
+			<br><br><br><br><br>
+		The importance sampling based method is not too different. We only change the sampling mechanism and the estimator. The remaining parts of the algorithm are more or less the same. <br>
+		The algorithm works as follows- <br>
+		For every source of light in the scene-
+		if the light source is a point source :
+			1. set sample by calling light->sample_L. This will return a direction variable that we can convert into a wi by multiplying by o2w <br>
+			2. generate ray = Ray(hit_p + EPS_D*(wi), (wi))
+			3. set ray.max_t = d2L - EPS_D; (where d2L is returned by our call to sample_L and represents dist to light) <br>
+			4. accumulate the result just as in the uniform case, but this time divide by the pdf for each increment (pdf is again returned by sample_L)
+			5. increment count by 1
+		if the source is not a point source :
+			repeat the same 4 steps , but this time wrap it up in a loop that runs ns_area_light times
+
+		<br><br><br>
+			Below are the pictures-
+			
+		
+		   
+			
+			
 			
 
 
 
 		<h5> Task 4</h5>
+		This task was about global illumination. The main idea here was to call the "one_bounce" function we defined earlier recursively until we hit some suitable threshold.<br>
+		All the work was put into the at_least_ine_bounce function. We first initial L_out to be the one_bounce_radiance. Then, the algortihm is as follows-
+		if max_ray_depth <= 1 we return L_out
+		else if (coin_flip(rouletteProb) || r.depth <= max_ray_depth){
+		    Vector3D direction = o2w* w_in;
+		    Ray bounceRay = Ray(hit_p + EPS_F*direction, direction, (int)r.depth - 1 );
+		    Intersection bounceIsect;
+		    if (bvh->intersect(bounceRay, &bounceIsect)){
+		      Vector3D bounceSample = at_least_one_bounce_radiance(bounceRay, bounceIsect);
+		      Vector3D weightedSample = bounceSample *bsdf * cos_theta(w_in)/ pdf / rouletteProb;
+		      L_out += weightedSample;
+		    }
+		  }
 		
 
 
