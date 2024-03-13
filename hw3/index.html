@@ -35,7 +35,13 @@
 
 		<br><br>
 		<br><br>
-		Here's some rendered images-
+		Here's some rendered images of banan and sphere-
+			<img src="banana.png" 
+     width="300" 
+     height="300" />
+		<img src="CBSpheres.png" 
+     width="300" 
+     height="300" />
 		
   
 			
@@ -44,11 +50,53 @@
 
 
 		<h3>Task 2</h3>
-		This taks was the implementation of BVH (I also tried BIH which is done in the EC section). Our BVH algorithm works as follows - <br>
+		This taks was the implementation of BVH. Our BVH algorithm works as follows - <br>
 		First, initialize a bounding box (bb) to compute the aggregated bb of all our primitives. We'll also keep track of the centroid with an instance of BoundingBox. <br>
 		Then we run through all our primitives and add them to the bounding box while adding the running centroid to the centroid box. Then, if the number of primitives is less than the limit, <br>
 		we are dealing with a leaf node, so we just assign start and end to be the start and end of the vector of primitives, assign left and right to be nullptrs. And finally assign the bbox to be the bounding box we constructed earlier. <br>
-		If the number of primitives is more than the limit, we are ot dealing with a leaf node so we need to call the constructor recursively to create the left and right children of this node.
+		If the number of primitives is more than the limit, we are ot dealing with a leaf node so we need to call the constructor recursively to create the left and right children of this node. <br>
+		We use the centroid heuristic for splitting. So we just pick the axis for which centroid.extent is maximum, and divide across that axis. <br>
+		For this, we check which primitives have their bounding boxes so that their bboxes have centroid to the left or right of the midpoint. <br>
+		We put the ones on the left in an array (on the heap) called left (and accordingly for right).<br>
+		Finally, recursively assign node->l = construct_bvh(left->begin(), left->end(), max_leaf_size)  (and do the same for the right child). <br>
+		<br><br><br><br>
+		Other than the construction algorithm, we also need an intersection algorithm. For this, we essentially use a binary search. But first let us provide the algorithm for bounding box intersection. <br>
+		It is described below - <br>
+		First compute (p_i - o_i)/d_i for all the x,y,z axes and for p equal to the max and min of the bbox. <br>
+		Then assign max_time and min_time as the max and min of the above quantities. <br>
+		if min_time > max_time or min_time > r.max_t or max_time less than r.min_t, there is no intersection so return false. <br>
+		else set t0 = min_time, t1 = max_time and return true.
+		<br><br>
+		We can now describe the binary search algorithm. It is as follows- <br>
+		First check if node->bb.intersect(ray, t1, t2) is true (we are checking if we intersect the outermost bbox). If not, return false. <br>
+		Else if true, if the node is a leaf run through the bboxes of all its primitives and see of the ray intersects with them (recall that we defined these functions in task1). <br>
+		if the node is not a leaf, call the search algorithm on the left and right children and return the "OR" of the two.
+		<br><br><br><br>
+		Below we've provided some images of dae files that were able to quickly render thanks to the bvh acceleration <br>
+			<img src="plank.png" 
+     width="300" 
+     height="300" />
+		<img src="angel.png" 
+     width="300" 
+     height="300" />
+			<img src="blob.png" 
+     width="300" 
+     height="300" />
+		<br><br><br>
+			Now, to see how well BVH performs and where it performs well, we'll render the images for teapot, cow and spheres and then compare the rendering times of eahc of them. <br>
+			The rendering times for cow with and w/o BVH are 0.0730s and 9.9885s respectively. <br>
+			For the teapot it is  0.654s vs 4.5802s <br>
+			For the Spheres it is  0.1023s vs 0.1219s <br>
+			These results are expected. The log(n) speedup of the BVH tree is much more applicable as n gets larger. for the case of the Spheres, since n is small, n and log(n) are comparable. <br>
+			Due to this there is not much of a difference in the linear and recursive approahces. BVH mainly benifits those cases where we have a large number of primitives distributed in our scene (as seen by our experiments).
+			Images for teapot and cow are below (spheres was hown in the last question so we don't include it).<br>
+			<img src="teapot.png" 
+     width="300" 
+     height="300" />
+			<img src="cow.png" 
+     width="300" 
+     height="300" />
+		
 
 
 
@@ -83,6 +131,7 @@
 
 		<br><br><br>
 			Below are the pictures-
+			
 			
 		
 		   
