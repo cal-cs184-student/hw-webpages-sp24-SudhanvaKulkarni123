@@ -54,6 +54,8 @@
 
 		<h4>Task 3</h4>
 		This task was for direct illumination. For this, we need to model two things- one bounce and zero bounce raiation. For reflections, we first modify the functions f and sample_f to characterize the reflective properties of our objects. <br>
+		In our case, we assume diffuse bsdf, so f just returns reflectance/2*PI. sample_f does the same thing except it also generates a sample for w_i. <br>
+		Then, we need to
 			
 
 
