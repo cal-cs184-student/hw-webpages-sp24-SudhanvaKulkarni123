@@ -130,7 +130,20 @@
 			repeat the same 4 steps , but this time wrap it up in a loop that runs ns_area_light times
 
 		<br><br><br>
-			Below are the pictures-
+			Below are the pictures using both hemisphere sampling-<br>
+
+
+
+
+			<br><br><br>
+			Here are importance sampling<br>
+			
+
+
+			<br><br><br>
+			It can be seen that while hemisphere sampling gives a more grainy and diffuse look to the image, importance sampling makes the image much sharper and crisp. <br>
+			This is to be expected since in hemisphere sampling we are uniformly sampling every direction rather than only those directions that actually light up the image. <br>
+			In hemishpere sampling
 			
 			
 		
@@ -169,6 +182,18 @@
 		Then, whenever count % samplesPerBatch == 0, we update the running mean as s1/double(count) and running variance as (s2 - s1*s1/double(count))/double(count-1). <br>
 		Finally compute I and check the aforementioned condition for whether we should terminate or not. Once we terminate, we set sampleCountBuffer[x + y * sampleBuffer.w] = count <br>
 		Here as the aimges - <br>
+			<img src="teapot.png" 
+     width="300" 
+     height="300" />
+			<img src="cow.png" 
+     width="300" 
+     height="300" />
+			<img src="teapot.png" 
+     width="300" 
+     height="300" />
+			<img src="cow.png" 
+     width="300" 
+     height="300" />
 			
 		
 	</body>
