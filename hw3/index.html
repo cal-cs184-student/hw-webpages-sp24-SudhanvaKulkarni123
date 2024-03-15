@@ -39,7 +39,7 @@
 			<img src="banana.png" 
      width="300" 
      height="300" />
-		<img src="CBSpheres.png" 
+		<img src="CBspheres.png" 
      width="300" 
      height="300" />
 		
@@ -165,6 +165,8 @@
 			<img src="bunny_64.png" 
      width="300" 
      height="300" />
+			<br><br>
+			I used a small sample per pixel rate for quicker convergence and clearer differences. The reduction in noise is clear as we increase l.
 			
 			
 			
@@ -181,17 +183,18 @@
 		This task was about global illumination. The main idea here was to call the "one_bounce" function we defined earlier recursively until we hit some suitable threshold.<br>
 		All the work was put into the at_least_ine_bounce function. We first initial L_out to be the one_bounce_radiance. Then, the algortihm is as follows-
 		if max_ray_depth <= 1 we return L_out
-		else if (coin_flip(rouletteProb) || r.depth <= max_ray_depth){
-		    Vector3D direction = o2w* w_in;
-		    Ray bounceRay = Ray(hit_p + EPS_F*direction, direction, (int)r.depth - 1 );
-		    Intersection bounceIsect;
-		    if (bvh->intersect(bounceRay, &bounceIsect)){
-		      Vector3D bounceSample = at_least_one_bounce_radiance(bounceRay, bounceIsect);
-		      Vector3D weightedSample = bounceSample *bsdf * cos_theta(w_in)/ pdf / rouletteProb;
-		      L_out += weightedSample;
-		    }
-		  }
-
+		Then, we flip a coin according to ouse russian roullette probability. If we get tails, we terminate the algorithm. Else we sample a new ray and add bounceSample *bsdf * cos_theta(w_in)/ pdf / rouletteProb to the running radiance. <br>
+			We repeat the above steps recursively. <br>
+			Here are some sample images with 1024 samples per pixel <br>
+			<img src="bunny_p6.png" 
+     width="300" 
+     height="300" />
+			<img src="spheres_p6.png" 
+     width="300" 
+     height="300" />
+			
+			<br>
+First we present the images of increasing number of bounces without russian roullete. Images are from m = 0 to 5. <br>
 			<img src="bunny_no_rus1.png" 
      width="300" 
      height="300" />
@@ -207,16 +210,18 @@
 			<img src="bunny_no_rus5.png" 
      width="300" 
      height="300" />
+			<br>
+			Here are images with only direct (m=0 + m=1) and only indirect lighting (rest).
+			<br>
 			<img src="bunny_full_dir.png" 
      width="300" 
      height="300" />
 			<img src="bunny_full_indir.png" 
      width="300" 
      height="300" />
-			<img src="bunny_full_dir.png" 
-     width="300" 
-     height="300" />
-			<img src="bunny_full_indir.png" 
+			<br>
+			Here are the images with accumulation turned off for m=0,1,2,3,4
+			<img src="bunny_l0.png" 
      width="300" 
      height="300" />
 			<img src="bunny_64_32_l1.png" 
@@ -231,7 +236,12 @@
 			<img src="bunny_64_32_l4.png" 
      width="300" 
      height="300" />
+			<br>
+			Here are images with accumulation and russian roullete. First is a 100 bounces, then is 0,1,2,3,4 <br>
 			<img src="bunny_full_accum1000.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_l0.png" 
      width="300" 
      height="300" />
 			<img src="bunny_full_accum1.png" 
