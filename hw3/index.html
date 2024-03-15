@@ -131,19 +131,42 @@
 
 		<br><br><br>
 			Below are the pictures using both hemisphere sampling-<br>
+			<img src="bunny_64_32_notimp.png" 
+     width="300" 
+     height="300" />
 
 
 
 
 			<br><br><br>
 			Here are importance sampling<br>
-			
+			<img src="bunny_64_32_imp.png" 
+     width="300" 
+     height="300" />
 
 
 			<br><br><br>
 			It can be seen that while hemisphere sampling gives a more grainy and diffuse look to the image, importance sampling makes the image much sharper and crisp. <br>
 			This is to be expected since in hemisphere sampling we are uniformly sampling every direction rather than only those directions that actually light up the image. <br>
 			In hemishpere sampling
+
+
+			<br><br><br>
+			Here are images with different values of l. They are in ascending order of l - 1,4,16,64 <br>
+			<img src="bunny_1.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_4.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_16.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_64.png" 
+     width="300" 
+     height="300" />
+			
+			
 			
 			
 		
@@ -168,6 +191,62 @@
 		      L_out += weightedSample;
 		    }
 		  }
+
+			<img src="bunny_no_rus1.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_no_rus2.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_no_rus3.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_no_rus4.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_no_rus5.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_dir.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_indir.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_dir.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_indir.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_64_32_l1.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_64_32_l2.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_64_32_l3.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_64_32_l4.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_accum1000.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_accum1.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_accum2.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_accum3.png" 
+     width="300" 
+     height="300" />
+			<img src="bunny_full_accum4.png" 
+     width="300" 
+     height="300" />
+			
 		
 
 
@@ -181,17 +260,17 @@
 		We then add variables s1,s2 for the running sum and running sum of squares respectively. <br>
 		Then, whenever count % samplesPerBatch == 0, we update the running mean as s1/double(count) and running variance as (s2 - s1*s1/double(count))/double(count-1). <br>
 		Finally compute I and check the aforementioned condition for whether we should terminate or not. Once we terminate, we set sampleCountBuffer[x + y * sampleBuffer.w] = count <br>
-		Here as the aimges - <br>
-			<img src="teapot.png" 
+		Here are the imgs - <br>
+			<img src="spheres_final_rate.png" 
      width="300" 
      height="300" />
-			<img src="cow.png" 
+			<img src="spheres_final.png" 
      width="300" 
      height="300" />
-			<img src="teapot.png" 
+			<img src="bunny_final_rate.png" 
      width="300" 
      height="300" />
-			<img src="cow.png" 
+			<img src="bunny_final.png" 
      width="300" 
      height="300" />
 			
