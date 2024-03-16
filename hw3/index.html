@@ -3,7 +3,9 @@
 	</head>
 	<body>
 		<h1> Overview</h1>
-		In this homework, I implemented some simple algorithms 
+		In this homework, I implemented some simple algorithms for raytracing. We tried out different sampling methods and used BVH for acceleration. <br>
+		It was a nice experience that taught me how I can use math to enhance the optical richness of an image.<br>
+		
 
 		<h2> Task 1</h2>
 		First I'll describe the ray generation algorithm. <br>
@@ -101,7 +103,7 @@
 
 
 		<h4>Task 3</h4>
-		This task was for direct illumination. For this, we need to model two things- one bounce and zero bounce raiation. For reflections, we first modify the functions f and sample_f to characterize the reflective properties of our objects. <br>
+		This task was for direct illumination. For this, we need to model two things- one bounce and zero bounce radiation. For reflections, we first modify the functions f and sample_f to characterize the reflective properties of our objects. <br>
 		In our case, we assume diffuse bsdf, so f just returns reflectance/2*PI. sample_f does the same thing except it also generates a sample for w_i. <br>
 		Then, we need to implmenet the zero bounce radiance function. This is done by just calculating the emmission of the intersected object which can be done by the call isect.bsdf->get_emission(). <br>
 		Finally, we need to implement one bounce radiance. Here, we try to integrate all possible paths that arrive at our pixel from other points in the scene. Two types of one bounce functions are used - direct_hemisphere sampling based <br>
@@ -130,7 +132,7 @@
 			repeat the same 4 steps , but this time wrap it up in a loop that runs ns_area_light times
 
 		<br><br><br>
-			Below are the pictures using both hemisphere sampling-<br>
+			Below is the pictures of a buny using hemisphere sampling-<br>
 			<img src="bunny_64_32_notimp.png" 
      width="300" 
      height="300" />
@@ -256,7 +258,29 @@ First we present the images of increasing number of bounces without russian roul
 			<img src="bunny_full_accum4.png" 
      width="300" 
      height="300" />
-			
+			<br>
+			Finally here's spheres of increasing sample rates <br>
+			<img src="spheres_rate1.png" 
+     width="300" 
+     height="300" />
+			<img src="spheres_rate2.png" 
+     width="300" 
+     height="300" />
+			<img src="spheres_rate4.png" 
+     width="300" 
+     height="300" />
+			<img src="spheres_rate8.png" 
+     width="300" 
+     height="300" />
+			<img src="spheres_rate16.png" 
+     width="300" 
+     height="300" />
+			<img src="spheres_rate64.png" 
+     width="300" 
+     height="300" />
+			<img src="spheres_rate1024.png" 
+     width="300" 
+     height="300" />
 		
 
 
