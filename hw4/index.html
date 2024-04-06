@@ -2,7 +2,13 @@
 	<head>
 	</head>
 	<body>
-		<h1>Part 1</h1>
+		
+		<h1>Overview and Part 1</h1>
+		In this project, I implemented a physics based cloth simulation that modelled a piece of cloth based on an intricate spring-mass-damper system. <br>
+		I also implemented collision handling and used shaders. I was able to learn how one can work in the intersection of mechanics and graphics to render physically accurate simulations. <br>
+		Now, for the implementation of Part1, it is quite simple. We have a 2D mesh of PointMass objects and Spring objects. For the PointMass, we indicate the position and whther it is pinned. <br>
+		We then add it to a vector called "pointmasses". We initialize three kinds of springs - structural, bending and shearing. These are initialized by their two connecting points and the type of spring. <br>
+		We add these to a vector called "springs". <br>
 		Here's the screenshots-
 		of no shear, only shear and all. <br>
 		<img src="Screen Shot 2024-04-02 at 9.34.02 PM.png" 
