@@ -130,10 +130,20 @@
      width="300" 
      height="300" />
 		<br>
-		<img src="banana.png" 
+		Finally, here's the bump vs displacement shaders for -o 16 -a 16 and -o 128 -a 128. Bump mapping seems to perform better than displacement mapping for this low sampling rate. <br>
+		This is clear from the strange blockiness of the sphere evident in the 16x16 displacement mapping image. Such blockiness happens since we are interpolating across a small number of samples. <br>
+		However, for higher frequencies, displacement is much much better as it is able to actually give the viewer a clear textural definition. This is absent for bump mapping and it just seems like we plastered a wallpaper onto the sphere when compared to displacement mapping. <br>
+		<img src="Screen Shot 2024-04-02 at 11.23.12 PM.png" 
      width="300" 
      height="300" />
-		<img src="CBspheres.png" 
+		<img src="Screen Shot 2024-04-02 at 11.25.04 PM.png" 
+     width="300" 
+     height="300" />
+		<br>
+		<img src="Screen Shot 2024-04-02 at 11.23.53 PM.png" 
+     width="300" 
+     height="300" />
+		<img src="Screen Shot 2024-04-02 at 11.23.12 PM.png" 
      width="300" 
      height="300" />
 		
