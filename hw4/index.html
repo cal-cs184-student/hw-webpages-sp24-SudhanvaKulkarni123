@@ -5,10 +5,13 @@
 		<h1>Part 1</h1>
 		Here's the screenshots-
 		of no shear, only shear and all.
-		<img src="banana.png" 
+		<img src="Screen Shot 2024-04-02 at 9.34.02 PM.png" 
      width="300" 
      height="300" />
-		<img src="CBspheres.png" 
+		<img src="Screen Shot 2024-04-02 at 9.34.16 PM.png" 
+     width="300" 
+     height="300" />
+		<img src="Screen Shot 2024-04-02 at 9.33.43 PM.png" 
      width="300" 
      height="300" />
 		
@@ -16,38 +19,81 @@
 
 		<h2>Part 2</h2>
 		Here is pinned4 with default params
-		<img src="banana.png" 
+		<img src="Screen Shot 2024-04-05 at 10.19.11 PM.png" 
      width="300" 
      height="300" />
-		<img src="CBspheres.png" 
+		<br>
+		On varying stiffness, we can see that the cloth droops easily for lower stiffness (here 500), and it stays firm for higher stiffness. <br>
+		We see the reverse efftec for density. The reasoning for this is just kx = ma. Since m represented the density of the cloth (or the mass on one particle in our discretized cloth).
+		<br>
+		So, x = ma/k and so a higher density causes more drooping than a lower one.
+		<br> First is pics with varying stiffness, we used k= 500 and 50,000 <br>
+		<img src="Screen Shot 2024-04-05 at 10.26.41 PM.png" 
      width="300" 
      height="300" />
+		<img src="Screen Shot 2024-04-05 at 10.27.11 PM.png" 
+     width="300" 
+     height="300" />
+		<br>
+		Then is varying density, we used rho = 1 and 150 <br>
+		<img src="Screen Shot 2024-04-05 at 10.27.35 PM.png" 
+     width="300" 
+     height="300" />
+		<img src="Screen Shot 2024-04-05 at 10.27.59 PM.png" 
+     width="300" 
+     height="300" />
+		<br>
+		I can't really capture the effect of the damping factor in an image, but it seems to control the amount of time it takes for the cloth to come to rest. <br>
+		Higher damping factor means time to rst is lesser. When we set it equal to 0, the cloth stays oscillating forever. <br>
 
 		<h3>Part 3</h3>
-		<img src="banana.png" 
+		Here's the resting cloth. <br>
+		<img src="Screen Shot 2024-04-02 at 10.14.39 PM.png" 
      width="300" 
      height="300" />
-		<img src="CBspheres.png" 
+		<br>
+		Here's the cloth on the ball with varying levels of stiffness.
+		<img src="Screen Shot 2024-04-02 at 10.18.07 PM.png" 
      width="300" 
-     height="300" /><img src="banana.png" 
+     height="300" /><img src="Screen Shot 2024-04-02 at 10.19.17 PM.png" 
      width="300" 
      height="300" />
-		<img src="CBspheres.png" 
+		<img src="Screen Shot 2024-04-05 at 10.06.43 PM.png" 
      width="300" 
      height="300" />
+		<br>
+		It can be seen that as we increase the stiffness, it is harder for the cloth to drape nicely. And smaller stiffness folds very comfortably.
 
 		<h4>Part 4</h4>
-<img src="banana.png" 
+		Here's pictures of a default cloth falling on itself. <br>
+<img src="Screen Shot 2024-04-02 at 10.28.33 PM.png" 
      width="300" 
      height="300" />
-		<img src="CBspheres.png" 
+		<img src="Screen Shot 2024-04-02 at 10.29.18 PM.png" 
      width="300" 
-     height="300" /><img src="banana.png" 
-     width="300" 
-     height="300" />
-		<img src="CBspheres.png" 
+     height="300" /><img src="Screen Shot 2024-04-02 at 10.29.34 PM.png" 
      width="300" 
      height="300" />
+		<br>
+		If we increase stiffness, just like all the previous parts, the cloth is not able to fold nicely. <br>
+		For high spring const, the cloth almost spreads out fully in its resting state. For low const it continues to fold nicely as seen below. <br>
+		
+		<img src="Screen Shot 2024-04-02 at 10.33.43 PM.png" 
+     width="300" 
+     height="300" />
+		<img src="Screen Shot 2024-04-02 at 10.34.27 PM.png" 
+     width="300" 
+     height="300" />
+		<br>
+		As in all the cases before this, the effect for density is reverse, as seen below-
+		<br>
+		<img src="Screen Shot 2024-04-02 at 10.36.42 PM.png" 
+     width="300" 
+     height="300" />
+		<img src="Screen Shot 2024-04-02 at 10.37.32 PM.png" 
+     width="300" 
+     height="300" />
+		
 
 		<h5>Part 5</h5>
 		Shader programs in GLSL are domain specific programs that are able to run quickly on GPUs to provide a cheap alternative to direct ray-tracing.<br>
@@ -60,22 +106,31 @@
 		Diffuser lighting is local and accounts for illumination source position. We compute how bright a point is with cosin-law and inverse square law. <br>
 		Specular reflection accounts for illumination source position, and the viewing position to produce glare. It also uses inverse-square and cosine laws, we just vary the coefficient and use a different angle.<br>
 		images are presented below-<br>
+		First is only diffuse, specular and ambient components in blinn phong. I varied the values of all of them coefficients based on the image to get the prettiest image. <br>
+		<img src="Screen Shot 2024-04-02 at 10.43.52 PM.png" 
+     width="300" 
+     height="300" />
+		<img src="Screen Shot 2024-04-02 at 10.46.56 PM.png" 
+     width="300" 
+     height="300" /><img src="Screen Shot 2024-04-02 at 10.47.42 PM.png" 
+     width="300" 
+     height="300" />
+		<br>
+		Here is all of them combined <br>
+		<img src="Screen Shot 2024-04-02 at 10.49.38 PM.png" 
+     width="300" 
+     height="300" />
+		<br>
+		Here's a custom texture. (Amogus) <br>
+		<img src="Screen Shot 2024-04-02 at 10.58.29 PM.png" 
+     width="300" 
+     height="300" /> <br>
+		Here's mirror shader <br>
+		<img src="Screen Shot 2024-04-02 at 11.25.49 PM.png" 
+     width="300" 
+     height="300" />
+		<br>
 		<img src="banana.png" 
-     width="300" 
-     height="300" />
-		<img src="CBspheres.png" 
-     width="300" 
-     height="300" /><img src="banana.png" 
-     width="300" 
-     height="300" />
-		<img src="CBspheres.png" 
-     width="300" 
-     height="300" /><img src="banana.png" 
-     width="300" 
-     height="300" />
-		<img src="CBspheres.png" 
-     width="300" 
-     height="300" /><img src="banana.png" 
      width="300" 
      height="300" />
 		<img src="CBspheres.png" 
